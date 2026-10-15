@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>할 일 목록</title>
+    <link rel="stylesheet" href="{% static 'todos/style.css' %}?v=6">
+</head>
+<body>
+<main class="todo-page">
+    <h1>할 일 목록</h1>
+
+    <form class="quick-form" method="post" action="{% url 'todos:create' %}">
+        {% csrf_token %}
+        <label for="quick-title">할 일</label>
+        <input id="quick-title" name="title" type="text" maxlength="200"
+               placeholder="할 일을 입력해주세요." required>
+        <button type="submit">등록</button>
+    </form>
+
+    <section class="todo-section">
+        <h2>진행 목록</h2>
+        <table class="todo-table">
+            <colgroup><col class="status-column"><col><col class="action-column"></colgroup>
+            <thead><tr><th aria-label="완료 상태">✅</th><th>할 일</th><th aria-label="즐겨찾기">★</th></tr></thead>
+            <tbody>
+                {% for todo in progress_todos %}
+                    <tr class="{% if todo.is_completed %}completed-row{% endif %}">
+                        <td>
+                            <form method="post" action="{% url 'todos:toggle' todo.pk %}">
+                                {% csrf_token %}
+                                <button class="check-button" type="submit" aria-label="{% if todo.is_completed %}완료 취소{% else %}완료 처리{% endif %}">{% if todo.is_completed %}✅{% else %}☐{% endif %}</button>
+                            </form>
+                        </td>
+                        <td><a class="todo-title" href="{% url 'todos:update' todo.pk %}">{{ todo.title }}</a></td>
+                        <td>
+                            <form method="post" action="{% url 'todos:delete' todo.pk %}" onsubmit="return confirm('이 할 일을 삭제하시겠습니까?');">
+                                {% csrf_token %}<button class="delete-button" type="submit" aria-label="삭제"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="bin" d="M3.8 5h8.4l-.7 8H4.5L3.8 5ZM3 3.6h10v1H3zM5.3 2h5.4v1.2H5.3z"/><path class="bin-lines" d="M6.2 6.3v5m2-5v5m2-5v5"/></svg></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td class="empty-row" colspan="3">조회된 데이터가 없습니다.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="todo-section waiting-section">
+        <h2>대기 목록</h2>
+        <table class="todo-table">
+            <colgroup><col class="status-column"><col><col class="action-column"></colgroup>
+            <thead><tr><th aria-label="진행 상태">✅</th><th>할 일</th><th aria-label="즐겨찾기">★</th></tr></thead>
+            <tbody>
+                {% for todo in waiting_todos %}
+                    <tr>
+                        <td>
+                            <form method="post" action="{% url 'todos:start' todo.pk %}">
+                                {% csrf_token %}<button class="state-button" type="submit">진행</button>
+                            </form>
+                        </td>
+                        <td><a class="todo-title" href="{% url 'todos:update' todo.pk %}">{{ todo.title }}</a></td>
+                        <td>
+                            <form method="post" action="{% url 'todos:delete' todo.pk %}" onsubmit="return confirm('이 할 일을 삭제하시겠습니까?');">
+                                {% csrf_token %}<button class="delete-button" type="submit" aria-label="삭제"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="bin" d="M3.8 5h8.4l-.7 8H4.5L3.8 5ZM3 3.6h10v1H3zM5.3 2h5.4v1.2H5.3z"/><path class="bin-lines" d="M6.2 6.3v5m2-5v5m2-5v5"/></svg></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td class="empty-row" colspan="3">조회된 데이터가 없습니다.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
