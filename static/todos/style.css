@@ -1,0 +1,169 @@
+:root {
+    font-family: "Malgun Gothic", "Noto Sans KR", Arial, sans-serif;
+    color: #252525;
+    background: #fff;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: #fff; }
+button, input, textarea { font: inherit; }
+form { margin: 0; }
+
+.todo-page {
+    width: min(450px, calc(100% - 32px));
+    margin: 3px auto 30px;
+    padding: 0 0 12px;
+    background: linear-gradient(#fff 0%, #fff 82%, #f5f5f5 100%);
+}
+h1 {
+    margin: 0 0 10px;
+    padding: 4px 0 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: .12em;
+}
+.quick-form {
+    display: grid;
+    grid-template-columns: 45px minmax(0, 1fr) 43px;
+    align-items: stretch;
+    margin: 0 0 12px;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #ddd;
+}
+.quick-form label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e2e2;
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+    background: #f5f5f5;
+    color: #555;
+    font-size: 13px;
+}
+.quick-form input {
+    min-width: 0;
+    height: 32px;
+    padding: 0 9px;
+    border: 1px solid #82b7e7;
+    outline: 3px solid rgba(86, 164, 236, .16);
+    font-size: 13px;
+}
+.quick-form input:focus { border-color: #438fce; }
+.quick-form > button {
+    border: 1px solid #79b1df;
+    border-radius: 0 4px 4px 0;
+    color: #397eac;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+}
+.quick-form > button:hover { background: #eef7ff; }
+
+.todo-section { margin: 0 0 12px; }
+.todo-section h2 {
+    margin: 0 0 7px;
+    font-size: 21px;
+    font-weight: 600;
+}
+.todo-table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: rgba(255,255,255,.95);
+}
+.status-column { width: 34%; }
+.action-column { width: 28%; }
+.todo-table th {
+    height: 33px;
+    border: 1px solid #414649;
+    color: #eee;
+    background: #1d2225;
+    font-size: 14px;
+}
+.todo-table th:first-child { color: #16e044; }
+.todo-table th:last-child { color: #ffcb28; }
+.todo-table td {
+    height: 42px;
+    padding: 4px 8px;
+    border: 1px solid #dedede;
+    background: rgba(255,255,255,.96);
+    text-align: center;
+}
+.todo-table td:nth-child(2) { text-align: left; }
+.todo-title {
+    display: block;
+    overflow: hidden;
+    color: #292929;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+}
+.todo-title:hover { color: #2476bb; text-decoration: underline; }
+.state-button {
+    padding: 4px 11px;
+    border: 1px solid #76afd8;
+    border-radius: 6px;
+    color: #357ba8;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    font-size: 14px;
+    cursor: pointer;
+}
+.state-button:hover { background: #edf7ff; }
+.check-button {
+    padding: 0;
+    border: 0;
+    color: #13d63a;
+    background: transparent;
+    font-size: 19px;
+    line-height: 1;
+    cursor: pointer;
+}
+.completed-row .todo-title { color: #888; text-decoration: line-through; }
+.completed-row td { background: #fafafa; }
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background: #dc354b;
+    cursor: pointer;
+}
+.delete-button svg { width: 15px; height: 15px; }
+.delete-button svg .bin { fill: #fff; }
+.delete-button svg .bin-lines { fill: none; stroke: #dc354b; stroke-width: 1; stroke-linecap: round; }
+.delete-button:hover { background: #c92038; }
+.empty-row {
+    height: 31px !important;
+    color: #999;
+    text-align: center !important;
+    font-size: 13px;
+}
+
+.form-container { width: min(620px, calc(100% - 32px)); margin: 48px auto; }
+.form-card { padding: 30px; border: 1px solid #ddd; background: #fff; }
+.form-card h1 { letter-spacing: 0; }
+.eyebrow { color: #2476bb; font-weight: 700; }
+.field { margin: 20px 0; }
+.field label { display: block; margin-bottom: 8px; font-weight: 700; }
+.field input, .field textarea { width: 100%; padding: 11px; border: 1px solid #bfc4ca; }
+.error, .errorlist { color: #d6263f; }
+.form-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.button { display: inline-block; padding: 9px 14px; border: 1px solid #bfc4ca; color: #333; background: #fff; text-decoration: none; cursor: pointer; }
+.button.primary { border-color: #2476bb; color: #fff; background: #2476bb; }
+
+@media (max-width: 500px) {
+    .todo-page { width: calc(100% - 24px); }
+    h1 { font-size: 24px; }
+    .todo-table td { padding: 4px 6px; }
+    .state-button { padding: 4px 9px; }
+    .delete-button { width: 31px; height: 31px; }
+}
